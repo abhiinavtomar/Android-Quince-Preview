@@ -1,0 +1,284 @@
+                <div id="nav-btn-container">
+                        <div class="nav-btn" id="menu-btn"><i class="fas fa-bars"></i></div>
+                        <div class="nav-btn" id="home-btn"><i class="far fa-square"></i></div>
+                        <div class="nav-btn" id="back-btn"><i class="fas fa-chevron-left"></i></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            
+            var lock                    =   document.getElementById('lock-screen');
+            var appTileContainer        =   document.getElementById('app-tile-container');
+            var appTileOpener           =   document.getElementById('app-tile-opener');
+            var dateContainer           =   document.getElementById('date-container');
+            var appTileCloser           =   document.getElementById('app-tile-closer');
+            var homeBtn                 =   document.getElementById('home-btn');
+            var settings                =   document.getElementById('settings');
+            var settingsContainer       =   document.getElementById('settings-container');
+            var notificationBar         =   document.getElementById('notification-bar');   
+            var notificationShade       =   document.getElementById('notification-shade');
+            var notificationShadeIcon   =   document.querySelectorAll('.noti-shade-icon');
+            var notificationBarIcons    =   document.querySelectorAll('.noti-bar-icons');
+            var notiShadeSettingsIcon   =   document.getElementById('noti-settings-icon');
+            var screenContainer         =   document.getElementById('screen-container');
+            var leftNotiBar             =   document.getElementById('left-noti-bar');
+            var rightNotiBar            =   document.getElementById('right-noti-bar')
+            var navBtnContainer         =   document.getElementById('nav-btn-container');
+            var mobileContainer         =   document.getElementById('mobile-container');
+            var brightnessBar           =   document.getElementById('brightness-bar');
+            var brightnessLvl           =   document.getElementById('brightness-lvl');
+            var musicalMe               =   document.getElementById('musicalme');
+            var musicalMeContainer      =   document.getElementById('musicalme-container');
+            var mobileContainer2        =   document.getElementById('mobile-container-2');
+            var cameraContainer         =   document.getElementById('camera-container');
+            var video                   =   document.getElementById('video');
+            var cameraApp               =   document.getElementById('camera-app');
+            var cameraAppContainer      =   document.getElementById('camera-app-container');
+            var camera                  =   document.getElementById('camera');
+            var cameraBackBtn           =   document.getElementById('camera-back-btn');
+            var picCapture              =   document.getElementById('pic-capture');
+            var picGallery              =   document.getElementById('pic-gallery');
+            var img                     =   document.getElementById('img');
+            
+            function time() {
+                var date = new Date();
+                document.getElementById('date1').innerHTML = document.getElementById('date11').innerHTML = (date.getHours() > 12 ? date.getHours() - 12 : date.getHours()) + " : " + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
+                document.getElementById('date2').innerHTML = date.getSeconds();
+                setTimeout(time, 1000);                //     recursive call
+            }
+            time();                                    // initial call 
+                
+            var dayFinder = {
+                0   :   "Sun",
+                1   :   "Mon",
+                2   :   "Tue",
+                3   :   "Wed",
+                4   :   "Thr",
+                5   :   "Fri",
+                6   :   "Sat"
+            }
+            
+            var monthFinder = {
+                0   :   "Jan",
+                1   :   "Feb",
+                2   :   "Mar",
+                3   :   "Apr",
+                4   :   "May",
+                5   :   "June",
+                6   :   "July",
+                7   :   "Aug",
+                8   :   "Sept",
+                9   :   "Oct",
+                10  :   "Nov",
+                11  :   "Dec"
+            }
+            var date =  new Date();   
+            document.getElementById('date3').innerHTML = document.getElementById('date22').innerHTML = dayFinder[date.getDay()] + " , " +  date.getDate() + " " + monthFinder[date.getMonth()];
+            
+           
+            
+            lock.addEventListener('click', function(){
+                lock.style.display              =   "none"; 
+                appTileOpener.style.display     =   "block";
+                appTileOpener.style.fontSize    =   "40px";
+                appTileOpener.style.top         =   "370px";
+            });
+            lock.addEventListener('mouseover', function(){
+                lock.style.color                =   colors();    
+            });
+            lock.addEventListener('mouseout', function() {
+                lock.style.color                =   "black";
+            })
+            notificationBar.addEventListener('click', function(){
+                 if(lock.style.display == "none") {
+                    hideEverything();
+                    notificationShade.style.display =   "block";
+                }
+            });
+            appTileOpener.addEventListener('click', function(){
+                appTileOpener.style.top         =   "300px";
+                dateContainer.style.opacity     =   "0";
+                setTimeout(appTileOpenerFunc, 300);
+                
+            });
+            appTileCloser.addEventListener('click', function(){
+                appTileCloserFunc();
+            });
+            homeBtn.addEventListener('click', function(){
+                if(lock.style.display == "none") {
+                    hideEverything();
+                    appTileCloserFunc();
+                }
+            });
+            settings.addEventListener('click', function(){
+                appTileContainer.style.display  =   "none";
+                settingsContainer.style.display =   "block";
+            });
+            notificationShadeIcon[0].addEventListener('click', function() {
+                this.classList.toggle('selected');        
+                if(notificationShadeIcon[0].classList.contains('selected')) {
+                    notificationBarIcons[0].classList.remove('hide');
+                    notificationBarIcons[2].classList.add('hide');
+                    notificationShadeIcon[2].classList.remove('selected');
+                } else {
+                    notificationBarIcons[0].classList.add('hide');
+                }
+            });
+            notificationShadeIcon[1].addEventListener('click', function() {
+                this.classList.toggle('selected'); 
+                if(notificationShadeIcon[1].classList.contains('selected')) {
+                    notificationBarIcons[1].classList.remove('hide');
+                } else {
+                    notificationBarIcons[1].classList.add('hide');
+                }
+            });
+            notificationShadeIcon[2].addEventListener('click', function() {
+                this.classList.toggle('selected'); 
+                if(notificationShadeIcon[2].classList.contains('selected')) {
+                    notificationBarIcons[2].classList.remove('hide');
+                    notificationBarIcons[0].classList.add('hide');
+                    notificationShadeIcon[0].classList.remove('selected');
+                } else {
+                    notificationBarIcons[2].classList.add('hide');
+                }
+            });
+                
+            notificationShadeIcon[3].addEventListener('click', function() {
+                this.classList.toggle('selected'); 
+                if(notificationShadeIcon[3].classList.contains('selected')) {
+                    notificationBarIcons[3].classList.remove('hide');
+                } else {
+                    notificationBarIcons[3].classList.add('hide');
+                }    
+            }); 
+                
+            notificationShadeIcon[4].addEventListener('click', function() {
+                this.classList.toggle('selected'); 
+                if(notificationShadeIcon[4].classList.contains('selected')) {
+                    notificationBarIcons[4].classList.remove('hide');
+                } else {
+                    notificationBarIcons[4].classList.add('hide');
+                }
+            });
+            
+            
+            notificationShadeIcon[5].addEventListener('click', function(){
+                this.classList.toggle('selected');
+                if(notificationShadeIcon[5].classList.contains('selected')) {
+                    notificationBarIcons[5].classList.remove('hide');
+                } else {
+                    notificationBarIcons[5].classList.add('hide');
+                }
+            });
+            
+            notificationShadeIcon[6].addEventListener('click', function() {
+                this.classList.toggle('selected');
+                if(notificationShadeIcon[6].classList.contains('selected')) {
+                    notificationBarIcons[6].classList.remove('hide');
+                    screenContainer.style.color     =   "tomato";
+                } else {
+                    notificationBarIcons[6].classList.add('hide');
+                    screenContainer.style.color     =   "black";
+                }
+                
+            });
+            
+            notificationShadeIcon[7].addEventListener('click', function() {
+                setTimeout(shutdown, 100);  
+            });
+            
+            notiShadeSettingsIcon.addEventListener('click', function() {
+                hideEverything();
+                settingsContainer.style.display         =   "block";
+            });
+            musicalMe.addEventListener('click', function() {
+                appTileContainer.style.display          =   "none";
+                musicalMeContainer.style.display        =   "block";
+            }); 
+            brightnessBar.addEventListener('mousemove', function(event) {
+                var height                              =   (event.pageY - 89)/2.45;
+                brightnessLvl.style.height              =   height + "%";
+                brightnessSet(height);
+            });
+            cameraApp.addEventListener('click', function() {
+                hideEverything();
+                camera.style.border                     =   "2px solid white";
+                camera.style.borderRadius               =   "50%";
+                cameraContainer.style.fontSize          =   "18px";
+                cameraAppContainer.style.display        =   "block";
+                if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    navigator.mediaDevices.getUserMedia({ video: {width: 325, height: 650} }).then(function(stream){
+                        video.srcObject                 =   stream;
+                        video.play();
+                        cameraBackBtn.style.display     =   "inline-block";
+                        picCapture.style.display        =   "inline-block";
+                    });
+                }
+            });
+            cameraBackBtn.addEventListener('click', function() {
+                cameraAppContainer.style.display        =   "none";
+                camera.style.border                     =   "none";
+                cameraContainer.style.fontSize          =   "20px";
+                appTileOpenerFunc();
+            });
+            picCapture.addEventListener('click', function() {
+                picCapture.style.backgroundColor        =   "rgba(255, 0, 0, 0.7)"
+                setTimeout(capturePic, 100);
+            });
+            
+            
+            function colors() {
+                var r   =   Math.round(Math.random()*255);
+                var g   =   Math.round(Math.random()*255);
+                var b   =   Math.round(Math.random()*255);
+                return "rgb(" + r + ", " + g + ", " + b + ")";
+            }
+            function hideEverything() {
+                appTileContainer.style.display      =   "none";
+                appTileOpener.style.display         =   "none";
+                dateContainer.style.display         =   "none";
+                settingsContainer.style.display     =   "none";
+                notificationShade.style.display     =   "none";
+                musicalMeContainer.style.display    =   "none";
+                cameraAppContainer.style.display    =   "none";
+            }
+            function appTileOpenerFunc() {
+                appTileOpener.style.fontSize        =   "20px";
+                appTileOpener.style.display         =   "none";
+                appTileOpener.style.fontSize        =   "50px";
+                appTileOpener.style.top             =   "370px";
+                appTileContainer.style.display      =   "block";
+                dateContainer.style.display         =   "none";
+                appTileContainer.style.top          =   "0px";
+                dateContainer.style.opacity         =   "1";
+            };
+            function appTileCloserFunc() {  
+                appTileContainer.style.display      =   "none";
+                dateContainer.style.display         =   "block";
+                appTileOpener.style.display         =   "block";  
+            };
+            function shutdown() {
+                screenContainer.style.display           =   "none"; 
+                leftNotiBar.style.display               =   "none";
+                rightNotiBar.style.display              =   "none";
+                navBtnContainer.style.display           =   "none";
+                mobileContainer.style.backgroundImage   =   "none";
+                mobileContainer.style.backgroundColor   =   "rgba(0, 0, 0, 0.4)";
+            };
+            function brightnessSet(height) {
+                var height = height / 100;
+                if(height < .05) {
+                    mobileContainer2.style.opacity      =   ".05";
+                } else {
+                    mobileContainer2.style.opacity      =   height;
+                }
+            };
+            function capturePic() {
+                picGallery.getContext('2d').drawImage(video, 0, 0);
+                img.src                                 =   picGallery.toDataUrl('image/webp');
+            };
+            
+            
+        </script>
+    </body>
+</html>

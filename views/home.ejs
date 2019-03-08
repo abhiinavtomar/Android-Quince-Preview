@@ -1,0 +1,113 @@
+<% include ./partials/header %>
+
+<div id="screen-container">
+    <div id="mobile-body">
+        
+        <div id="date-container">
+            <div id="date1"></div>
+            <div id="date2"></div>
+            <div id="date3"></div>
+        </div>
+        
+        <div id="lock-screen">
+            <i class="fas fa-fingerprint"></i>
+        </div>
+        
+        <div id="notification-shade">
+            <div id="brightness-bar"><div id="brightness-lvl"></div></div>
+            <div>
+                <i class="fab fa-whmcs" id="noti-settings-icon"></i>
+                <div id="date11"></div>
+                <div id="date22"></div>
+            </div>
+            
+            <div>
+                <div id="noti-icon-bar">
+                    <div class="noti-shade-icon selected"><i class="fas fa-wifi"></i></div>
+                    <div class="noti-shade-icon"><i class="fab fa-bluetooth-b"></i></div>
+                    <div class="noti-shade-icon"><i class="fas fa-arrows-alt-v"></i></div>
+                    <div class="noti-shade-icon"><i class="fas fa-location-arrow"></i></div>
+                    <div class="noti-shade-icon"><i class="fas fa-bell-slash"></i></div>
+                    <div class="noti-shade-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="noti-shade-icon"><i class="fas fa-adjust"></i></div>
+                    <div class="noti-shade-icon"><i class="fas fa-power-off"></i></div>
+                    <div class="noti-shade-icon"><i class="fas fa-user"></i></div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="app-tile-opener"> <i class="fas fa-chevron-up"></i> </div>
+        
+        <div id="app-tile-container">
+             
+            <div class="app-tile"><i class="fab fa-facebook-square"><div class="app-desc">Facebook</div></i></div>
+            <div class="app-tile"><i class="fas fa-envelope"><div class="app-desc">Messenger</div></i></div>
+            <div class="app-tile" id="camera-app"><i class="fas fa-camera"><div class="app-desc">Cam</div></i></div>
+            <div class="app-tile"><i class="fab fa-whatsapp"><div class="app-desc">Whatsapp</div></i></div>
+            <div class="app-tile" id="settings"><i class="fab fa-whmcs"><div class="app-desc">Settings</div></i></div>
+            <div class="app-tile"><i class="fab fa-aws"><div class="app-desc">AWS</div></i></div>
+            <div class="app-tile"><i class="fab fa-apple-pay"><div class="app-desc">iPay</div></i></div>
+            <div class="app-tile"><i class="fab fa-amazon-pay"><div class="app-desc">Pay</div></i></div>
+            <div class="app-tile"><i class="fas fa-address-card"><div class="app-desc">Card</div></i></div>
+            <div class="app-tile"><i class="fas fa-address-book"><div class="app-desc">Book</div></i></div>
+            <div class="app-tile"><i class="fab fa-adobe"><div class="app-desc">Adobe</div></i></div>
+            <div class="app-tile"><i class="fab fa-angular"><div class="app-desc">Angular</div></i></div>
+            <div class="app-tile"><i class="fas fa-hamburger"><div class="app-desc">Swiggy</div></i></div>
+            <div class="app-tile"><i class="fas fa-ambulance"><div class="app-desc">Hospital</div></i></div>
+            <div class="app-tile"><i class="fas fa-car-side"><div class="app-desc">Ola</div></i></div>
+            <div class="app-tile"><i class="fas fa-fighter-jet"><div class="app-desc">Jetways</div></i></div>
+            <div class="app-tile"><i class="fas fa-cloud-moon-rain"><div class="app-desc">Weather</div></i></div>
+            <div class="app-tile"><i class="fas fa-graduation-cap"><div class="app-desc">College</div></i></div>
+            <div class="app-tile"><i class="fas fa-hotel"><div class="app-desc">Trivago</div></i></div>
+            <div class="app-tile"><i class="fas fa-lightbulb"><div class="app-desc">Electrician</div></i></div>
+            <div class="app-tile"><i class="fab fa-bitcoin"><div class="app-desc">Bitcoin</div></i></div>
+            <div class="app-tile" id="musicalme"><i class="fas fa-headphones-alt"><div class="app-desc">Musical Me</div></i></div>
+            <br>
+            <br>
+            <br>
+            <div id="app-tile-closer"> <i class="fas fa-chevron-down"></i> </div>
+        </div>
+        
+        <div id="settings-container">
+            <div id="header">Settings</div>
+            <div class="settings-content">About Phone</div>
+            <div class="settings-content">Mobile networks</div>
+            <div class="settings-content">Wi-Fi</div>
+            <div class="settings-content">Display</div>
+            <div class="settings-content">Wallpaper</div>
+            <div class="settings-content">Lock screen & password</div>
+            <div class="settings-content">Notifications & status bar</div>
+            <div class="settings-content">Additional settings</div>
+            <div class="settings-content">Feedback</div>
+        </div>
+        
+        <div id="musicalme-container">
+            <div id="header">Musical Me </div>
+            <audio>
+                <source  src="/audio/intheend.mp3" type="audio/mp3">
+                Your browser doesn't support this mp3 format 
+            </audio>
+            <audio>
+                <source src="/audio/titanium.mp3" type="audio/mp3">
+                Your browser doesn't support this mp3 format
+            </audio> 
+            <audio>
+                <source src="/audio/stressedout.mp3" type="audio/mp3">
+                Your browser doesn't support this mp3 format
+            </audio>
+        </div>
+        
+        <div id="camera-app-container">
+            <div><i id="camera-back-btn" class="fas fa-chevron-left"></i></div>
+            <div id="pic-capture"></div>
+            <canvas id="pic-gallery"></canvas>
+            <video autoplay id="video"></video>
+        </div>
+        
+        <!--<div id="gallery-container">-->
+        <!--    <img id="img" alt="Image" height="650px">-->
+        <!--</div>-->
+    </div>
+</div>
+
+<% include ./partials/footer %>
