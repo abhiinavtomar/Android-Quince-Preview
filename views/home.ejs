@@ -39,17 +39,18 @@
         <div id="app-tile-opener"> <i class="fas fa-chevron-up"></i> </div>
         
         <div id="app-tile-container">
-             
-            <div class="app-tile"><i class="fab fa-facebook-square"><div class="app-desc">Facebook</div></i></div>
-            <div class="app-tile"><i class="fas fa-envelope"><div class="app-desc">Messenger</div></i></div>
-            <div class="app-tile" id="camera-app"><i class="fas fa-camera"><div class="app-desc">Cam</div></i></div>
-            <div class="app-tile"><i class="fab fa-whatsapp"><div class="app-desc">Whatsapp</div></i></div>
+            <div>Working Apps</div> 
+            <div class="app-tile" id="fb-app"><i class="fab fa-facebook-square"><div class="app-desc">Facebook</div></i></div>
+            <div class="app-tile" id="camera-app"><i class="fas fa-camera-retro"><div class="app-desc">Cam</div></i></div>
+            <div class="app-tile" id="gallery-app"><i class="fas fa-images"><div class="app-desc">Gallery</div></i></div>
             <div class="app-tile" id="settings"><i class="fab fa-whmcs"><div class="app-desc">Settings</div></i></div>
-            <div class="app-tile"><i class="fab fa-aws"><div class="app-desc">AWS</div></i></div>
+            <div class="app-tile" id="musicalme"><i class="fas fa-headphones-alt"><div class="app-desc">Musical Me</div></i></div>
+            <br>
+            <br>
+            <div>Not Working</div>
+            <div class="app-tile"><i class="fab fa-whatsapp"><div class="app-desc">Whatsapp</div></i></div>
             <div class="app-tile"><i class="fab fa-apple-pay"><div class="app-desc">iPay</div></i></div>
-            <div class="app-tile"><i class="fab fa-amazon-pay"><div class="app-desc">Pay</div></i></div>
             <div class="app-tile"><i class="fas fa-address-card"><div class="app-desc">Card</div></i></div>
-            <div class="app-tile"><i class="fas fa-address-book"><div class="app-desc">Book</div></i></div>
             <div class="app-tile"><i class="fab fa-adobe"><div class="app-desc">Adobe</div></i></div>
             <div class="app-tile"><i class="fab fa-angular"><div class="app-desc">Angular</div></i></div>
             <div class="app-tile"><i class="fas fa-hamburger"><div class="app-desc">Swiggy</div></i></div>
@@ -59,9 +60,8 @@
             <div class="app-tile"><i class="fas fa-cloud-moon-rain"><div class="app-desc">Weather</div></i></div>
             <div class="app-tile"><i class="fas fa-graduation-cap"><div class="app-desc">College</div></i></div>
             <div class="app-tile"><i class="fas fa-hotel"><div class="app-desc">Trivago</div></i></div>
-            <div class="app-tile"><i class="fas fa-lightbulb"><div class="app-desc">Electrician</div></i></div>
             <div class="app-tile"><i class="fab fa-bitcoin"><div class="app-desc">Bitcoin</div></i></div>
-            <div class="app-tile" id="musicalme"><i class="fas fa-headphones-alt"><div class="app-desc">Musical Me</div></i></div>
+            
             <br>
             <br>
             <br>
@@ -81,20 +81,43 @@
             <div class="settings-content">Feedback</div>
         </div>
         
+        <div id="fb-app-container">
+            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook&tabs=timeline&width=325&height=618&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="325" height="618" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+        </div>
+        
         <div id="musicalme-container">
             <div id="header">Musical Me </div>
-            <audio>
-                <source  src="/audio/intheend.mp3" type="audio/mp3">
-                Your browser doesn't support this mp3 format 
-            </audio>
-            <audio>
-                <source src="/audio/titanium.mp3" type="audio/mp3">
-                Your browser doesn't support this mp3 format
-            </audio> 
-            <audio>
-                <source src="/audio/stressedout.mp3" type="audio/mp3">
-                Your browser doesn't support this mp3 format
-            </audio>
+            <div class="music-name"><i class="fas fa-play-circle play"></i><i class="fas fa-pause-circle pause"></i>&nbsp In the end
+                <div class="loading">
+                    <div class="loading-circle-1"><i class="fas fa-circle-notch"></i></div>
+                    <div class="loading-circle-2"><i class="fas fa-circle-notch"></i></div>
+                </div>
+            </div>
+            <div class="music-name"><i class="fas fa-play-circle play"></i><i class="fas fa-pause-circle pause"></i>&nbsp Rockstar
+                <div class="loading">
+                    <div class="loading-circle-1"><i class="fas fa-circle-notch"></i></div>
+                    <div class="loading-circle-2"><i class="fas fa-circle-notch"></i></div>
+                </div>
+            </div>
+            <div class="music-name"><i class="fas fa-play-circle play"></i><i class="fas fa-pause-circle pause"></i>&nbsp Titanium
+                <div class="loading">
+                    <div class="loading-circle-1"><i class="fas fa-circle-notch"></i></div>
+                    <div class="loading-circle-2"><i class="fas fa-circle-notch"></i></div>
+                </div>
+            </div>
+            <div class="music-name"><i class="fas fa-play-circle play"></i><i class="fas fa-pause-circle pause"></i>&nbsp Stressed out
+                <div class="loading">
+                    <div class="loading-circle-1"><i class="fas fa-circle-notch"></i></div>
+                    <div class="loading-circle-2"><i class="fas fa-circle-notch"></i></div>
+                </div>
+            </div>
+            
+            <div id="music-player">
+                <audio id="music-contents" controls>
+                    <source id="music" src="/audio/intheend.mp3" type="audio/mp3">
+                    Your browser doesn't support this mp3 format 
+                </audio>
+            </div>
         </div>
         
         <div id="camera-app-container">
@@ -102,12 +125,31 @@
             <div id="pic-capture"></div>
             <canvas id="pic-gallery"></canvas>
             <video autoplay id="video"></video>
+            
+        </div>
+        <div id="error-msg"></div>
+        
+        <div id="user-container">
+            <img src="/icon.png" alt="Abhinav" width="200px" height="200px" style="border-radius: 50%;">
+            <p>Hey, I am Abhinav </p>
+            <p>Hope you liked my project</p>
+            <p>Check out more on : <a href="http://abhiinavtomar.herokuapp.com/" target="_blank" style="color: green;">@abhiinavtomar</a></p>
         </div>
         
-        <!--<div id="gallery-container">-->
-        <!--    <img id="img" alt="Image" height="650px">-->
-        <!--</div>-->
+        <div id="gallery-container">
+            <div id="gallery-no-img-msg">No Images Found</div>
+            <div id="open-cam"><i class="fas fa-plus-circle"></i></div>
+        </div>
+        
+        
     </div>
+</div>
+
+<div id="shutdown-container">
+    <div id="shutdown-circle-1"><i class="fas fa-circle-notch"></i></div>
+    <div id="shutdown-circle-2"><i class="fas fa-circle-notch"></i></div>
+    <br><br><br>
+    <div>Shutting Down  <br>    Hope to see you soon</div>
 </div>
 
 <% include ./partials/footer %>

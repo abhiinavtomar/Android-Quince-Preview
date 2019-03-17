@@ -1,7 +1,5 @@
                 <div id="nav-btn-container">
-                        <div class="nav-btn" id="menu-btn"><i class="fas fa-bars"></i></div>
-                        <div class="nav-btn" id="home-btn"><i class="far fa-square"></i></div>
-                        <div class="nav-btn" id="back-btn"><i class="fas fa-chevron-left"></i></div>
+                        <div class="nav-btn" id="home-btn"></div>
                 </div>
             </div>
         </div>
@@ -38,7 +36,31 @@
             var cameraBackBtn           =   document.getElementById('camera-back-btn');
             var picCapture              =   document.getElementById('pic-capture');
             var picGallery              =   document.getElementById('pic-gallery');
-            var img                     =   document.getElementById('img');
+            var shutdownContainer       =   document.getElementById('shutdown-container');
+            var userContainer           =   document.getElementById('user-container');
+            var fbApp                   =   document.getElementById('fb-app');
+            var fbAppContainer          =   document.getElementById('fb-app-container');
+            var errorMsg                =   document.getElementById('error-msg');
+            var galleryApp              =   document.getElementById('gallery-app');
+            var galleryContainer        =   document.getElementById('gallery-container');
+            var galleryNoImgMsg         =   document.getElementById('gallery-no-img-msg');
+            var openCam                 =   document.getElementById('open-cam');
+            var musicName               =   document.querySelectorAll('.music-name');
+            var musicContents           =   document.getElementById('music-contents');
+            var playBtn                 =   document.querySelectorAll('.play');
+            var pauseBtn                =   document.querySelectorAll('.pause');
+            var loading                 =   document.querySelectorAll('.loading');
+            var loadingColorChooser;
+            var notificationShadeHeight =   0;
+            var cameracloser;
+            var stream1;
+            var newImg;
+            var musicSelect             =   {
+                0   :   "audio/intheend.mp3",
+                1   :   "audio/rockstar.mp3",
+                2   :   "audio/titanium.mp3",
+                3   :   "audio/stressedout.mp3"
+            }
             
             function time() {
                 var date = new Date();
@@ -90,10 +112,14 @@
                 lock.style.color                =   "black";
             })
             notificationBar.addEventListener('click', function(){
-                 if(lock.style.display == "none") {
+                if(lock.style.display == "none") {
                     hideEverything();
                     notificationShade.style.display =   "block";
+                    notificationShade.style.height  =   "0px";
+                    notificationShadeHeight         =   0;
+                    notificationShadeAnimation();
                 }
+                
             });
             appTileOpener.addEventListener('click', function(){
                 appTileOpener.style.top         =   "300px";
@@ -104,6 +130,10 @@
             appTileCloser.addEventListener('click', function(){
                 appTileCloserFunc();
             });
+            navBtnContainer.addEventListener('mouseover', function() {
+                fbAppContainer.style.height     =   "595px";
+                setTimeout(hideNavBtn, 2000);
+            });
             homeBtn.addEventListener('click', function(){
                 if(lock.style.display == "none") {
                     hideEverything();
@@ -111,9 +141,20 @@
                 }
             });
             settings.addEventListener('click', function(){
-                appTileContainer.style.display  =   "none";
-                settingsContainer.style.display =   "block";
+                appTileContainer.style.display      =   "none";
+                settingsContainer.style.display     =   "block";
+                notificationBar.style.backgroundColor   =   "rgba(255, 255, 255, 0.7)";
+                homeBtn.style.backgroundColor           =   "black";
             });
+            fbApp.addEventListener('click', function() {
+                appTileContainer.style.display      =   "none";
+                fbAppContainer.style.display        =   "block";
+                notificationBar.style.backgroundColor   =   "rgba(255, 255, 255, 0.4)";
+            });
+            galleryApp.addEventListener('click', function() {
+                openGallery();
+            }); 
+            
             notificationShadeIcon[0].addEventListener('click', function() {
                 this.classList.toggle('selected');        
                 if(notificationShadeIcon[0].classList.contains('selected')) {
@@ -185,6 +226,14 @@
             
             notificationShadeIcon[7].addEventListener('click', function() {
                 setTimeout(shutdown, 100);  
+                setTimeout(fullShutdown,5100);
+            });
+            
+            notificationShadeIcon[8].addEventListener('click', function() {
+                notificationShade.style.display         =   "none";
+                userContainer.style.display             =   "block";
+                notificationBar.style.backgroundColor   =   "rgba(255, 255, 255, 0.7)";
+                homeBtn.style.backgroundColor           =   "black";
             });
             
             notiShadeSettingsIcon.addEventListener('click', function() {
@@ -194,6 +243,8 @@
             musicalMe.addEventListener('click', function() {
                 appTileContainer.style.display          =   "none";
                 musicalMeContainer.style.display        =   "block";
+                notificationBar.style.backgroundColor   =   "rgba(255, 255, 255, 0.7)";
+                homeBtn.style.backgroundColor           =   "black";
             }); 
             brightnessBar.addEventListener('mousemove', function(event) {
                 var height                              =   (event.pageY - 89)/2.45;
@@ -201,30 +252,48 @@
                 brightnessSet(height);
             });
             cameraApp.addEventListener('click', function() {
-                hideEverything();
-                camera.style.border                     =   "2px solid white";
-                camera.style.borderRadius               =   "50%";
-                cameraContainer.style.fontSize          =   "18px";
-                cameraAppContainer.style.display        =   "block";
-                if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                    navigator.mediaDevices.getUserMedia({ video: {width: 325, height: 650} }).then(function(stream){
-                        video.srcObject                 =   stream;
-                        video.play();
-                        cameraBackBtn.style.display     =   "inline-block";
-                        picCapture.style.display        =   "inline-block";
-                    });
-                }
+                openCamera();
             });
             cameraBackBtn.addEventListener('click', function() {
                 cameraAppContainer.style.display        =   "none";
                 camera.style.border                     =   "none";
                 cameraContainer.style.fontSize          =   "20px";
                 appTileOpenerFunc();
+                stream1.getTracks().forEach(function(stream){
+                    stream.stop();   
+                });
             });
             picCapture.addEventListener('click', function() {
                 picCapture.style.backgroundColor        =   "rgba(255, 0, 0, 0.7)"
                 setTimeout(capturePic, 100);
             });
+            picGallery.addEventListener('click', function() {
+                openGallery();
+                stream1.getTracks().forEach(function(stream) {
+                    stream.stop();
+                });
+            });
+            openCam.addEventListener('click', function() {
+                openCamera();
+            }); 
+            
+        
+            musicName[0].addEventListener('click', function() {
+                music(0);
+            });
+            musicName[1].addEventListener('click', function() {
+                music(1);
+            });
+            musicName[2].addEventListener('click', function() {
+                music(2);
+            });
+            musicName[3].addEventListener('click', function() {
+                music(3);
+            });
+            musicContents.addEventListener('ended', function() {
+                resettingPlayPauseBtn();
+            })
+            
             
             
             function colors() {
@@ -234,13 +303,20 @@
                 return "rgb(" + r + ", " + g + ", " + b + ")";
             }
             function hideEverything() {
-                appTileContainer.style.display      =   "none";
-                appTileOpener.style.display         =   "none";
-                dateContainer.style.display         =   "none";
-                settingsContainer.style.display     =   "none";
-                notificationShade.style.display     =   "none";
-                musicalMeContainer.style.display    =   "none";
-                cameraAppContainer.style.display    =   "none";
+                appTileContainer.style.display          =   "none";
+                appTileOpener.style.display             =   "none";
+                dateContainer.style.display             =   "none";
+                settingsContainer.style.display         =   "none";
+                notificationShade.style.display         =   "none";
+                musicalMeContainer.style.display        =   "none";
+                cameraAppContainer.style.display        =   "none";
+                userContainer.style.display             =   "none";
+                fbAppContainer.style.display            =   "none";
+                notificationBar.style.backgroundColor   =   "rgba(0, 0, 0, 0)";
+                errorMsg.style.display                  =   "none";
+                galleryContainer.style.display          =   "none";
+                homeBtn.style.backgroundColor           =   "white";
+                galleryNoImgMsg.style.display           =   "none";
             }
             function appTileOpenerFunc() {
                 appTileOpener.style.fontSize        =   "20px";
@@ -262,9 +338,16 @@
                 leftNotiBar.style.display               =   "none";
                 rightNotiBar.style.display              =   "none";
                 navBtnContainer.style.display           =   "none";
-                mobileContainer.style.backgroundImage   =   "none";
-                mobileContainer.style.backgroundColor   =   "rgba(0, 0, 0, 0.4)";
+                mobileContainer2.style.backgroundImage  =   "none";
+                shutdownContainer.style.display         =   "block";
+                
             };
+            function fullShutdown() {
+                shutdownContainer.style.display         =   "none";  
+                mobileContainer.style.backgroundColor   =   "black";
+                musicContents.pause();
+            };  
+            
             function brightnessSet(height) {
                 var height = height / 100;
                 if(height < .05) {
@@ -274,11 +357,93 @@
                 }
             };
             function capturePic() {
-                picGallery.getContext('2d').drawImage(video, 0, 0);
-                img.src                                 =   picGallery.toDataUrl('image/webp');
+                picGallery.getContext('2d').drawImage(video, 0, 0, 300, 150);
+                newImg                                  =   document.createElement('IMG');
+                newImg.src                              =   picGallery.toDataURL("image/png", 1.0);
+                newImg.classList.add('pictures');
+                galleryContainer.appendChild(newImg);
             };
-            
-            
+            function hideNavBtn() {
+                fbAppContainer.style.height             =   "620px";
+            };  
+            function openGallery() {
+                appTileContainer.style.display          =   "none";
+                cameraAppContainer.style.display        =   "none";
+                galleryContainer.style.display          =   "block";
+                notificationBar.style.backgroundColor   =   "rgba(255, 255, 255, 0.7)";
+                camera.style.border                     =   "none";
+                cameraContainer.style.fontSize          =   "20px";
+                homeBtn.style.backgroundColor           =   "black";
+                if(galleryContainer.childElementCount > 2) {
+                    galleryNoImgMsg.style.display           =   "none";
+                    galleryContainer.style.textAlign        =   "left";
+                }   else    {
+                    galleryNoImgMsg.style.display           =   "block";
+                    galleryContainer.style.textAlign        =   "center";
+                }
+                
+            };
+            function openCamera() {
+                hideEverything();
+                camera.style.border                     =   "2px solid white";
+                camera.style.borderRadius               =   "50%";
+                cameraContainer.style.fontSize          =   "18px";
+                cameraAppContainer.style.display        =   "block";
+                if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    cameracloser = navigator.mediaDevices.getUserMedia({ video: {width: 325, height: 650} }).then(function(stream){
+                        stream1                         =   stream;
+                        video.srcObject                 =   stream1;
+                        video.play();
+                        cameraBackBtn.style.display     =   "inline-block";
+                        picCapture.style.display        =   "inline-block";
+                    }).catch(function(e){
+                        cameraAppContainer.style.display        =   "none";
+                        camera.style.border                     =   "none";
+                        cameraContainer.style.fontSize          =   "20px";
+                        errorMsg.style.display          =   "block";
+                        errorMsg.innerHTML   =   "Error Ocurred : " + e;
+                        cameraAppContainer.style.display    =   "none";
+                    });  
+                }
+            };
+            function resettingPlayPauseBtn() {
+                for(i=0; i<4; i++) {
+                    playBtn[i].style.display           =   "inline";
+                    pauseBtn[i].style.display          =   "none";
+                    loading[i].style.display            =   "none";
+                    
+                }
+            };
+            function loadingMusicColors() {
+                if(loading[loadingColorChooser].style.display     ==  "inline") {
+                    loading[loadingColorChooser].style.color                  =   colors();
+                    setTimeout(loadingMusicColors, 500);
+                }
+            };
+            function music(i) {
+                if(pauseBtn[i].style.display ==  "inline") {
+                    musicContents.pause();    
+                    playBtn[i].style.display        =   "inline";
+                    pauseBtn[i].style.display       =   "none";
+                    loading[i].style.display        =   "none";
+                } else {
+                    resettingPlayPauseBtn();
+                    playBtn[i].style.display            =   "none";
+                    pauseBtn[i].style.display           =   "inline";
+                    loading[i].style.display            =   "inline";
+                    loadingColorChooser                 =   i;   
+                    loadingMusicColors();
+                    musicContents.src                   =   musicSelect[i];
+                    musicContents.play();
+                }
+            };
+            function notificationShadeAnimation() {
+                notificationShadeHeight                 +=  10;   
+                notificationShade.style.height          =  notificationShadeHeight + "px";
+            if(notificationShadeHeight  <   500) {
+                    setTimeout(notificationShadeAnimation, 1);
+                }
+            };
         </script>
     </body>
 </html>
